@@ -2,9 +2,9 @@
 namespace Codeception\Module;
 
 use Codeception\Lib\Driver\SMTPDriver;
-use Codeception\Module as CodeceptionModule;
+use Codeception\Module;
 
-class Gmail extends CodeceptionModule
+class Gmail extends Module
 {
     protected $requiredFields = ['username', 'password'];
 

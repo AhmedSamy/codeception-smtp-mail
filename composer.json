@@ -2,6 +2,7 @@
   "name": "ahmedsamy/codeception-smtp-mail",
   "description": "Test emails in your Codeception acceptance tests",
   "homepage": "https://github.com/AhmedSamy/codeception-smtp-mail",
+  "license": "MIT",
   "keywords": [
     "gmail",
     "smtp",
@@ -21,7 +22,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Codeception\\Module\\": "src"
+      "Codeception\\": "src"
     }
   }
 }
