@@ -26,12 +26,12 @@ $ bin/codecept build
 ```
 
 ### Available methods
-- ``` php seeInEmailBy() ```
-- ``` php canSeeInEmailBy() ```
-- ``` php seeInEmailBy() ```
-- ``` php cantSeeInEmailBy() ```
-- ``` php dontSeeInEmailBy() ```
-- ``` php grabEmailBy() ```
+- ``` seeInEmailBy() ```
+- ``` canSeeInEmailBy() ```
+- ``` seeInEmailBy() ```
+- ``` cantSeeInEmailBy() ```
+- ``` dontSeeInEmailBy() ```
+- ``` grabEmailBy() ```
 
 ###TODO
 
