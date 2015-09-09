@@ -26,14 +26,16 @@ $ bin/codecept build
 ```
 
 ### Available methods
-- ``` seeInEmailBy() ```
-- ``` canSeeInEmailBy() ```
-- ``` seeInEmailBy() ```
-- ``` cantSeeInEmailBy() ```
-- ``` dontSeeInEmailBy() ```
+- ``` seeInEmailBy($criteria) ```
+- ``` canSeeInEmailBy($criteria) ```
+- ``` seeInEmailBy($criteria) ```
+- ``` cantSeeInEmailBy($criteria) ```
+- ``` dontSeeInEmailBy($criteria) ```
 - ``` grabEmailBy() ```
 
-###TODO
+* $criteria is according to imap syntax, see http://php.net/manual/en/function.imap-search.php
+
+###TODOs
 
 - Write tests
 - Handle attachments
