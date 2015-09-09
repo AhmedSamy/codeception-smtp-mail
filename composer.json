@@ -1,7 +1,7 @@
 {
-  "name": "ahmedsamy/mailcatcher-codeception-module",
+  "name": "ahmedsamy/codeception-smtp-mail",
   "description": "Test emails in your Codeception acceptance tests",
-  "homepage": "https://github.com/AhmedSamy/mailcatcher-codeception-module",
+  "homepage": "https://github.com/AhmedSamy/codeception-smtp-mail",
   "keywords": [
     "gmail",
     "smtp",
