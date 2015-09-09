@@ -4,10 +4,15 @@ namespace Codeception\Module;
 use Codeception\Lib\Driver\SMTPDriver;
 use Codeception\Module;
 
+/**
+ * @author Ahmed Samy <ahmed.samy.cs@gmail.com>
+ */
 class Gmail extends Module
 {
+    /** @var array */
     protected $requiredFields = ['username', 'password'];
 
+    /** @var array */
     protected $config = [
         'username',
         'password',
@@ -23,6 +28,11 @@ class Gmail extends Module
      */
     public function _initialize()
     {
+        if (!function_exists('imap_search')) {
+            throw new \Exception(
+                "imap is not installed, check http://php.net/manual/en/imap.setup.php for more information"
+            );
+        }
         $this->driver = new SMTPDriver(
             $this->config['username'],
             $this->config['password'],

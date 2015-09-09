@@ -4,6 +4,9 @@ namespace Codeception\Lib\Driver;
 
 use PhpImap\Mailbox;
 
+/**
+ * @author Ahmed Samy <ahmed.samy.cs@gmail.com>
+ */
 class SMTPDriver
 {
     private $mailbox;
