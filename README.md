@@ -1,12 +1,10 @@
 ### Installation
 
-Add this to composer.json
-
 ``` bash
 $ composer require ahmedsamy/codeception-smtp-mail
 ```
 
-### configuration
+### Configuration
 in `acceptance.yml`
 ``` yaml
 modules:
