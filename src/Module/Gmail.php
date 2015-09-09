@@ -44,7 +44,7 @@ class Gmail extends Module
     /**
      * @param $criteria
      */
-    public function seeInEmailBy($criteria)
+    public function seeEmailBy($criteria)
     {
         $this->assertTrue($this->driver->seeEmailBy($criteria));
     }
@@ -52,7 +52,7 @@ class Gmail extends Module
     /**
      * @param $criteria
      */
-    public function dontSeeInEmailBy($criteria)
+    public function dontSeeEmailBy($criteria)
     {
         $this->assertFalse($this->driver->seeEmailBy($criteria));
     }

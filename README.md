@@ -26,14 +26,24 @@ $ bin/codecept build
 ```
 
 ### Available methods
-- ``` seeInEmailBy($criteria) ```
-- ``` canSeeInEmailBy($criteria) ```
-- ``` seeInEmailBy($criteria) ```
-- ``` cantSeeInEmailBy($criteria) ```
-- ``` dontSeeInEmailBy($criteria) ```
+- ``` seeEmailBy($criteria) ```
+- ``` canSeeEmailBy($criteria) ```
+- ``` seeEmailBy($criteria) ```
+- ``` cantSeeEmailBy($criteria) ```
+- ``` dontSeeEmailBy($criteria) ```
 - ``` grabEmailBy() ```
 
 * $criteria is according to imap syntax, see http://php.net/manual/en/function.imap-search.php
+
+### Examples
+
+Checking email with subject and date
+
+``` php
+$I->seeEmailBy('SUBJECT "HOWTO be Awesome" SINCE "8 August 2008"');
+
+```
+
 
 ###TODOs
 
