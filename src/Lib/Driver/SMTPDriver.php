@@ -2,6 +2,7 @@
 
 namespace Codeception\Lib\Driver;
 
+use PhpImap\IncomingMail;
 use PhpImap\Mailbox;
 
 /**
@@ -9,7 +10,14 @@ use PhpImap\Mailbox;
  */
 class SMTPDriver
 {
+    /** @var Mailbox */
     private $mailbox;
+
+    /** @var  int */
+    private $numberOfRetries;
+
+    /** @var  int */
+    private $waitIntervalInSeconds;
 
     public function __construct($config)
     {
@@ -19,6 +27,9 @@ class SMTPDriver
             $config['password'],
             realpath($config['attachments_dir'])
         );
+
+        $this->numberOfRetries = $config['retry_counts'];
+        $this->waitIntervalInSeconds = $config['wait_interval'];
     }
 
     public function getEmailBy($criteria)
@@ -41,9 +52,22 @@ class SMTPDriver
         return !empty($mailsIds);
     }
 
+    public function getLinksByEmail(IncomingMail $mail)
+    {
+        $matches = [];
+
+        preg_match('|http://([^\s]*)|', $mail->textHtml, $matches);
+
+        return $matches;
+    }
+
     protected function search($criteria)
     {
-        return $this->mailbox->searchMailBox($criteria);
+        return $this->retry(
+            $criteria,
+            $this->numberOfRetries,
+            $this->waitIntervalInSeconds
+        );
     }
 
     /**
@@ -51,21 +75,22 @@ class SMTPDriver
      * @param int    $numberOfRetries
      * @param int    $waitInterval
      *
-     * @return null|\PhpImap\IncomingMail
-     * @throws \Exception
-     */
+     * @return array
+     **/
     protected function retry($criteria, $numberOfRetries, $waitInterval)
     {
+        $mailIds = [];
         while ($numberOfRetries > 0) {
-            $mailIds = $this->search($criteria);
-            codecept_debug("Failed to find the email, Retrying ... ({$numberOfRetries}) tries left");
-            if (empty($mailsIds)) {
-                return $mailIds;
+            sleep($waitInterval);
+            $mailIds = $this->mailbox->searchMailBox($criteria);
+
+            if (!empty($mailIds)) {
+                break;
             }
             $numberOfRetries--;
-            sleep($waitInterval);
+            codecept_debug("Failed to find the email, retrying ... ({$numberOfRetries}) trie(s) left");
         }
 
-        return [];
+        return $mailIds;
     }
 }
