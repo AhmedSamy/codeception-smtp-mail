@@ -113,9 +113,9 @@ class Gmail extends Module
     }
 
     /**
-     * @param $url
+     * @param string $url
      *
-     * @return null
+     * @return string
      * @throws ModuleException
      */
     public function grabLinkFromEmail($url)
@@ -128,9 +128,23 @@ class Gmail extends Module
         return $url;
     }
 
+    /**
+     * @param string $criteria
+     *
+     * @throws \Exception
+     */
     public function openEmail($criteria)
     {
         $this->mail = $this->driver->getEmailBy($criteria);
+    }
+
+    /**
+     * @return IncomingMail
+     * @throws ModuleException
+     */
+    public function grabEmail()
+    {
+        return $this->getCurrentMail();
     }
 
     /**
@@ -168,7 +182,7 @@ class Gmail extends Module
     }
 
     /**
-     * @return mixed
+     * @return IncomingMail
      * @throws ModuleException
      */
     private function getCurrentMail()
