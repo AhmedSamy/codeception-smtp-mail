@@ -18,6 +18,8 @@ class Gmail extends Module
         'password',
         'imap_path' => '{imap.gmail.com:993/imap/ssl}INBOX',
         'attachments_dir' => '/tests/_data',
+        'wait_interval' => 0.25, //by ms
+        'retry_counts' => 3,
     ];
 
     /** @var  SMTPDriver */
@@ -33,12 +35,7 @@ class Gmail extends Module
                 "imap is not installed, check http://php.net/manual/en/imap.setup.php for more information"
             );
         }
-        $this->driver = new SMTPDriver(
-            $this->config['username'],
-            $this->config['password'],
-            $this->config['imap_path'],
-            realpath($this->config['attachments_dir'])
-        );
+        $this->driver = new SMTPDriver($this->config);
     }
 
     /**
@@ -68,8 +65,4 @@ class Gmail extends Module
         return $this->driver->getEmailBy($criteria);
     }
 
-    public function wait($seconds)
-    {
-        //@TODO implement wait method
-    }
 }

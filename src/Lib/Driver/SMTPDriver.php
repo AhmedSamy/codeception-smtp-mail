@@ -11,13 +11,13 @@ class SMTPDriver
 {
     private $mailbox;
 
-    public function __construct($username, $password, $imapPath, $attachmentsDir)
+    public function __construct($config)
     {
         $this->mailbox = new Mailbox(
-            $imapPath,
-            $username,
-            $password,
-            $attachmentsDir
+            $config['imap_path'],
+            $config['username'],
+            $config['password'],
+            realpath($config['attachments_dir'])
         );
     }
 
@@ -44,5 +44,28 @@ class SMTPDriver
     protected function search($criteria)
     {
         return $this->mailbox->searchMailBox($criteria);
+    }
+
+    /**
+     * @param string $criteria
+     * @param int    $numberOfRetries
+     * @param int    $waitInterval
+     *
+     * @return null|\PhpImap\IncomingMail
+     * @throws \Exception
+     */
+    protected function retry($criteria, $numberOfRetries, $waitInterval)
+    {
+        while ($numberOfRetries > 0) {
+            $mailIds = $this->search($criteria);
+            codecept_debug("Failed to find the email, Retrying ... ({$numberOfRetries}) tries left");
+            if (empty($mailsIds)) {
+                return $mailIds;
+            }
+            $numberOfRetries--;
+            sleep($waitInterval);
+        }
+
+        return [];
     }
 }
