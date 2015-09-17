@@ -56,9 +56,9 @@ class SMTPDriver
     {
         $matches = [];
 
-        preg_match_all('|https?://[^\s]*|', $mail->textHtml, $matches);
+        preg_match_all('|href="([^\s"]+)|', $mail->textHtml, $matches);
 
-        return $matches[0];
+        return $matches[1];
     }
 
     protected function search($criteria)
