@@ -19,10 +19,10 @@ class Smtp extends Module
         'username',
         'password',
         'imap_path' => '{imap.gmail.com:993/imap/ssl}INBOX',
-        'attachments_dir' => 'tests/_data',
         'wait_interval' => 1, //in seconds
         'retry_counts' => 3,
-        'auto_clear_attachments' => true
+        'attachments_dir' => 'tests/_data',
+        'auto_clear_attachments' => true,
     ];
 
     /** @var  SMTPDriver */
