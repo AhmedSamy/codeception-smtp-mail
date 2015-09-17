@@ -9,7 +9,7 @@ use PhpImap\IncomingMail;
 /**
  * @author Ahmed Samy <ahmed.samy.cs@gmail.com>
  */
-class Gmail extends Module
+class Smtp extends Module
 {
     /** @var array */
     protected $requiredFields = ['username', 'password'];
@@ -19,7 +19,7 @@ class Gmail extends Module
         'username',
         'password',
         'imap_path' => '{imap.gmail.com:993/imap/ssl}INBOX',
-        'attachments_dir' => '/tests/_data',
+        'attachments_dir' => 'tests/_data',
         'wait_interval' => 1, //in seconds
         'retry_counts' => 3,
         'auto_clear_attachments' => true
@@ -96,14 +96,14 @@ class Gmail extends Module
      */
     public function clickInEmail($url)
     {
-        $url = $this->searchForLink($url, $this->driver->getLinksByEmail($this->getCurrentMail()));
-        if (null == $url) {
-            throw new ModuleException($this, sprintf("can't find %s not found in the current email", $url));
+        $urlFound = $this->searchForLink($url, $this->driver->getLinksByEmail($this->getCurrentMail()));
+        if (null == $urlFound) {
+            throw new ModuleException($this, sprintf("can't find %s in the current email", $url));
         }
         if ($this->hasModule('WebDriver')) {
-            $this->getModule('WebDriver')->amOnUrl($url);
+            $this->getModule('WebDriver')->amOnUrl($urlFound);
         } elseif ($this->hasModule('PhpBrowser')) {
-            $this->getModule('PhpBrowser')->amOnUrl($url);
+            $this->getModule('PhpBrowser')->amOnUrl($urlFound);
         } else {
             throw new ModuleException(
                 $this,
@@ -120,12 +120,12 @@ class Gmail extends Module
      */
     public function grabLinkFromEmail($url)
     {
-        $url = $this->searchForLink($url, $this->driver->getLinksByEmail($this->getCurrentMail()));
-        if (null == $url) {
-            throw new ModuleException($this, sprintf("can't find %s not found in the current email", $url));
+        $urlFound = $this->searchForLink($url, $this->driver->getLinksByEmail($this->getCurrentMail()));
+        if (null == $urlFound) {
+            throw new ModuleException($this, sprintf("can't find %s in the current email", $url));
         }
 
-        return $url;
+        return $urlFound;
     }
 
     /**

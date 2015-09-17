@@ -9,9 +9,9 @@ in `acceptance.yml`
 ``` yaml
 modules:
     enabled:
-        - Gmail
+        - Smtp
     config:
-        Gmail:
+        Smtp:
             username: name@email.com
             password: password
 
@@ -63,7 +63,19 @@ $I->grabLinkFromEmail("http://google.com/awesome");
 
 ### Configuration reference
 
-TODO !
+``` yaml
+
+        Smtp:
+            username: username@domain.com #required
+            password: password123 #required
+            imap_path: {imap.gmail.com:993/imap/ssl}INBOX  #imap path defaults to gmail config
+            wait_interval: 1 #waiting interval between trials in seconds
+            retry_counts: 3 # how many trials till
+            attachments_dir: tests/_data #where email attachemnts are stored
+            auto_clear_attachments: true #wether to clear attachments folder every run or not
+
+
+```
 
 
 ###TODOs
