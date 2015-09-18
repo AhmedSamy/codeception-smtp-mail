@@ -39,7 +39,7 @@ $ bin/codecept build
 - ``` dontSeeLinkInEmail($url) ```
 - ``` canSeeEmailAttachmentsCount($count) ```
 - ``` canSeeEmailAttachment($name) ```
-- ``` dontSeeLinkInEmail($url) ```
+
 
 * $criteria is according to imap syntax, see http://php.net/manual/en/function.imap-search.php
 
