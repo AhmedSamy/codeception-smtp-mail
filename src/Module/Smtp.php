@@ -139,6 +139,19 @@ class Smtp extends Module
     }
 
     /**
+     * @param $criteria
+     *
+     * @return int
+     * @throws \Exception
+     */
+    public function countEmailsByCriteria($criteria)
+    {
+        $mails = $this->driver->getEmailsBy($criteria);
+
+        return count($mails);
+    }
+
+    /**
      * @param int $count
      *
      * @throws ModuleException

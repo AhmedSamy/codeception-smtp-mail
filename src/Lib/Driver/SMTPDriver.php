@@ -32,19 +32,52 @@ class SMTPDriver
         $this->waitIntervalInSeconds = $config['wait_interval'];
     }
 
+    /**
+     * @param $criteria
+     *
+     * @return IncomingMail
+     * @throws \Exception
+     */
     public function getEmailBy($criteria)
     {
-        $mailsIds = $this->search($criteria);
-        if (!$mailsIds) {
+        $mailIds = $this->search($criteria);
+        if (!$mailIds) {
             throw new \Exception(sprintf("No email found with given criteria %s", $criteria));
         }
 
-        $mailId = reset($mailsIds);
+        $mailId = reset($mailIds);
         $mail = $this->mailbox->getMail($mailId);
 
         return $mail;
     }
 
+    /**
+     * @param $criteria
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function getEmailsBy($criteria)
+    {
+        $mails = [];
+        $mailIds = $this->search($criteria);
+        if (!$mailIds) {
+            throw new \Exception(sprintf("No email found with given criteria %s", $criteria));
+        }
+
+        foreach ($mailIds as $mailId) {
+            $mails[] = $this->mailbox->getMail($mailId);
+
+        }
+
+        return $mails;
+    }
+
+    /**
+     * @param $criteria
+     *
+     * @return bool
+     */
     public function seeEmailBy($criteria)
     {
         $mailsIds = $this->search($criteria);
@@ -52,6 +85,11 @@ class SMTPDriver
         return !empty($mailsIds);
     }
 
+    /**
+     * @param IncomingMail $mail
+     *
+     * @return mixed
+     */
     public function getLinksByEmail(IncomingMail $mail)
     {
         $matches = [];
@@ -61,6 +99,11 @@ class SMTPDriver
         return $matches[1];
     }
 
+    /**
+     * @param $criteria
+     *
+     * @return array
+     */
     protected function search($criteria)
     {
         return $this->retry(
