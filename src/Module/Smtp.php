@@ -23,6 +23,7 @@ class Smtp extends Module
         'retry_counts' => 3,
         'attachments_dir' => 'tests/_data',
         'auto_clear_attachments' => true,
+        'charset' => 'UTF-8',
     ];
 
     /** @var  SMTPDriver */
