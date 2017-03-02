@@ -25,7 +25,8 @@ class SMTPDriver
             $config['imap_path'],
             $config['username'],
             $config['password'],
-            realpath($config['attachments_dir'])
+            realpath($config['attachments_dir']),
+            $config['charset']
         );
 
         $this->numberOfRetries = $config['retry_counts'];
