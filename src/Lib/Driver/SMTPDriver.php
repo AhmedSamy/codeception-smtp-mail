@@ -39,14 +39,18 @@ class SMTPDriver
      * @return IncomingMail
      * @throws \Exception
      */
-    public function getEmailBy($criteria)
+    public function getEmailBy($criteria, $first)
     {
         $mailIds = $this->search($criteria);
         if (!$mailIds) {
             throw new \Exception(sprintf("No email found with given criteria %s", $criteria));
         }
 
-        $mailId = reset($mailIds);
+        if ($first == true){
+            $mailId = reset($mailIds);
+        }else{
+            $mailId = end($mailIds);
+        }
         $mail = $this->mailbox->getMail($mailId);
 
         return $mail;
