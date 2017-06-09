@@ -134,9 +134,9 @@ class Smtp extends Module
      *
      * @throws \Exception
      */
-    public function openEmail($criteria)
+    public function openEmail($criteria, $first = true)
     {
-        $this->mail = $this->driver->getEmailBy($criteria);
+        $this->mail = $this->driver->getEmailBy($criteria, $first);
     }
 
     /**
