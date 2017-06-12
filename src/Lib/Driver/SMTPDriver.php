@@ -46,11 +46,12 @@ class SMTPDriver
             throw new \Exception(sprintf("No email found with given criteria %s", $criteria));
         }
 
-        if ($first == true){
+        if ($first){
             $mailId = reset($mailIds);
         }else{
             $mailId = end($mailIds);
         }
+
         $mail = $this->mailbox->getMail($mailId);
 
         return $mail;
@@ -62,12 +63,21 @@ class SMTPDriver
      * @return array
      * @throws \Exception
      */
-    public function getEmailsBy($criteria)
+    /**
+     * @param $criteria
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function getEmailsBy($criteria, $count)
     {
         $mails = [];
         $mailIds = $this->search($criteria);
-        if (!$mailIds) {
-            throw new \Exception(sprintf("No email found with given criteria %s", $criteria));
+
+        if (!$count) {
+            if (!$mailIds) {
+                throw new \Exception(sprintf("No email found with given criteria %s", $criteria));
+            }
         }
 
         foreach ($mailIds as $mailId) {
