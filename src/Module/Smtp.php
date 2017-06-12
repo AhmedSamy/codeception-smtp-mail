@@ -130,24 +130,25 @@ class Smtp extends Module
     }
 
     /**
-     * @param string $criteria
+     * @param string $criteria,  $first = true
      *
      * @throws \Exception
      */
-    public function openEmail($criteria)
+    public function openEmail($criteria, $first = true)
     {
-        $this->mail = $this->driver->getEmailBy($criteria);
+        $this->mail = $this->driver->getEmailBy($criteria, $first);
     }
 
     /**
-     * @param $criteria
+     * @param $criteria, bool $count = false
      *
      * @return int
-     * @throws \Exception
+     * @ if $count = false and email is 0 throws \Exception
+     * @ if $count = true and email is 0 return 0
      */
-    public function countEmailsByCriteria($criteria)
+    public function countEmailsByCriteria($criteria, $count = false)
     {
-        $mails = $this->driver->getEmailsBy($criteria);
+        $mails = $this->driver->getEmailsBy($criteria, $count);
 
         return count($mails);
     }
