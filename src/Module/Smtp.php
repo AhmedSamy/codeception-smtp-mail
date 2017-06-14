@@ -131,7 +131,7 @@ class Smtp extends Module
     
     /**
      * @param string $str
-	 * @param int $length
+     * @param int $length
      *
      * @return string
      * @throws ModuleException
@@ -146,6 +146,15 @@ class Smtp extends Module
         $text = substr( $stringFound , stripos($stringFound, $str) + strlen($str), $length);
 
         return $text;
+    }
+	
+    /**
+     * @param string $str
+     *
+     */
+    public function seeTextInEmail($str)
+    {
+ 	$this->assertTrue($this->contains($str, $this->driver->getStringsByEmail($this->getCurrentMail()));
     }
 
     /**
