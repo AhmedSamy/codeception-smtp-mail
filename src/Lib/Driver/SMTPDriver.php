@@ -113,7 +113,20 @@ class SMTPDriver
 
         return $matches[1];
     }
+    
+    /**
+     * @param IncomingMail $mail
+     *
+     * @return mixed
+     */
+    public function getStringsByEmail(IncomingMail $mail)
+    {
+        $matches = [];
 
+        $matches = preg_split('/\n|\r\n?/', $mail->textHtml);
+
+        return $matches;
+    }
     /**
      * @param $criteria
      *

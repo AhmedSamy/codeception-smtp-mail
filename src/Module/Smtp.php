@@ -97,7 +97,7 @@ class Smtp extends Module
      */
     public function clickInEmail($url)
     {
-        $urlFound = $this->searchForLink($url, $this->driver->getLinksByEmail($this->getCurrentMail()));
+        $urlFound = $this->searchForText($url, $this->driver->getLinksByEmail($this->getCurrentMail()));
         if (null == $urlFound) {
             throw new ModuleException($this, sprintf("can't find %s in the current email", $url));
         }
@@ -121,12 +121,40 @@ class Smtp extends Module
      */
     public function grabLinkFromEmail($url)
     {
-        $urlFound = $this->searchForLink($url, $this->driver->getLinksByEmail($this->getCurrentMail()));
+        $urlFound = $this->searchForText($url, $this->driver->getLinksByEmail($this->getCurrentMail()));
         if (null == $urlFound) {
             throw new ModuleException($this, sprintf("can't find %s in the current email", $url));
         }
 
         return $urlFound;
+    }
+    
+    /**
+     * @param string $str
+     * @param int $length
+     *
+     * @return string
+     * @throws ModuleException
+     */
+    public function grabTextFromEmail($str, $length)
+    {
+        $stringFound = $this->searchForText($str, $this->driver->getStringsByEmail($this->getCurrentMail()));
+        if (null == $stringFound) {
+            throw new ModuleException($this, sprintf("can't find %s in the current email", $str));
+        }
+		
+        $text = substr( $stringFound , stripos($stringFound, $str) + strlen($str), $length);
+
+        return $text;
+    }
+	
+    /**
+     * @param string $str
+     *
+     */
+    public function seeTextInEmail($str)
+    {
+ 	$this->assertTrue($this->contains($str, $this->driver->getStringsByEmail($this->getCurrentMail()));
     }
 
     /**
@@ -211,7 +239,7 @@ class Smtp extends Module
      *
      * @return null
      */
-    private function searchForLink($str, array $arr)
+    private function searchForText($str, array $arr)
     {
         foreach ($arr as $a) {
             if (stripos($a, $str) !== false) {
