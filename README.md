@@ -9,12 +9,9 @@ in `acceptance.yml`
 ``` yaml
 modules:
     enabled:
-        - Smtp
-    config:
-        Smtp:
+        - Smtp:
             username: name@email.com
             password: password
-
 ```
 
 Build codeception
