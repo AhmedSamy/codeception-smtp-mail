@@ -98,7 +98,7 @@ class Smtp extends Module
     public function clickInEmail($url)
     {
         $urlFound = $this->searchForText($url, $this->driver->getLinksByEmail($this->getCurrentMail()));
-        if (null == $urlFound) {
+        if (null === $urlFound) {
             throw new ModuleException($this, sprintf("can't find %s in the current email", $url));
         }
         if ($this->hasModule('WebDriver')) {
@@ -122,7 +122,7 @@ class Smtp extends Module
     public function grabLinkFromEmail($url)
     {
         $urlFound = $this->searchForText($url, $this->driver->getLinksByEmail($this->getCurrentMail()));
-        if (null == $urlFound) {
+        if (null === $urlFound) {
             throw new ModuleException($this, sprintf("can't find %s in the current email", $url));
         }
 
@@ -139,7 +139,7 @@ class Smtp extends Module
     public function grabTextFromEmail($str, $length)
     {
         $stringFound = $this->searchForText($str, $this->driver->getStringsByEmail($this->getCurrentMail()));
-        if (null == $stringFound) {
+        if (null === $stringFound) {
             throw new ModuleException($this, sprintf("can't find %s in the current email", $str));
         }
 		
@@ -158,7 +158,8 @@ class Smtp extends Module
     }
 
     /**
-     * @param string $criteria,  $first = true
+     * @param string $criteria
+     * @param bool $first
      *
      * @throws \Exception
      */
@@ -168,7 +169,8 @@ class Smtp extends Module
     }
 
     /**
-     * @param $criteria, bool $count = false
+     * @param $criteria
+     * @param bool $count
      *
      * @return int
      * @ if $count = false and email is 0 throws \Exception
@@ -218,7 +220,7 @@ class Smtp extends Module
 
     /**
      * @param string $str
-     * @param array  $arr
+     * @param array $arr
      *
      * @return bool
      */
@@ -235,7 +237,7 @@ class Smtp extends Module
 
     /**
      * @param string $str
-     * @param array  $arr
+     * @param array $arr
      *
      * @return null
      */
@@ -256,7 +258,7 @@ class Smtp extends Module
      */
     private function getCurrentMail()
     {
-        if (null == $this->mail) {
+        if (null === $this->mail) {
             throw new ModuleException(
                 $this,
                 "There's no open email, may be you forgot to ,`\$I->openEmail` to open it"
