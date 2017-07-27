@@ -154,7 +154,7 @@ class Smtp extends Module
      */
     public function seeTextInEmail($str)
     {
- 	$this->assertTrue($this->contains($str, $this->driver->getStringsByEmail($this->getCurrentMail()));
+        $this->assertTrue($this->contains($str, $this->driver->getStringsByEmail($this->getCurrentMail())));
     }
 
     /**
