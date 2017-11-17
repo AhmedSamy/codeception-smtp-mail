@@ -284,4 +284,10 @@ class Smtp extends Module
             }
         }
     }
+
+    public function searchInLabel($labelPath)
+    {
+      $this->config['imap_path'] = '{imap.gmail.com:993/imap/ssl}'.$labelPath;
+      $this->driver = new SMTPDriver($this->config);
+    }
 }
