@@ -3,6 +3,7 @@ namespace Codeception\Module;
 
 use Codeception\Exception\ModuleException;
 use Codeception\Lib\Driver\SMTPDriver;
+use Codeception\Lib\ModuleContainer;
 use Codeception\Module;
 use PhpImap\IncomingMail;
 
@@ -11,26 +12,27 @@ use PhpImap\IncomingMail;
  */
 class Smtp extends Module
 {
-    /** @var array */
-    protected $requiredFields = ['username', 'password'];
-
-    /** @var array */
-    protected $config = [
-        'username',
-        'password',
-        'imap_path' => '{imap.gmail.com:993/imap/ssl}INBOX',
-        'wait_interval' => 1, //in seconds
-        'retry_counts' => 3,
-        'attachments_dir' => 'tests/_data',
-        'auto_clear_attachments' => true,
-        'charset' => 'UTF-8',
-    ];
-
     /** @var  SMTPDriver */
     protected $driver;
 
     /** @var  IncomingMail */
     protected $mail;
+
+    public function __construct(ModuleContainer $moduleContainer, ?array $config = null)
+    {
+        $this->requiredFields = ['username', 'password'];
+        $this->config = [
+            'username',
+            'password',
+            'imap_path' => '{imap.gmail.com:993/imap/ssl}INBOX',
+            'wait_interval' => 1, //in seconds
+            'retry_counts' => 3,
+            'attachments_dir' => 'tests/_data',
+            'auto_clear_attachments' => true,
+            'charset' => 'UTF-8',
+        ];
+        parent::__construct($moduleContainer, $config);
+    }
 
     /**
      * {@inheritdoc}
